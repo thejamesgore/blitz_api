@@ -170,7 +170,9 @@ async def hw_info_sub(request: Request):
 async def get_system_health(
     verbose: bool = Query(
         False,
-        description="Returns info about each subsytem running on this node if true. Currently not implemented.",
+        description="""Returns info about each 
+        subsytem running on this node if
+        true. Currently not implemented.""",
     ),
 ) -> SystemHealthInfo:
     return await system_health(verbose)
