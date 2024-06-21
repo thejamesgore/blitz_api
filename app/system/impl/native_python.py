@@ -64,7 +64,7 @@ class NativePythonSystem(SystemBase):
         return ConnectionInfo()
 
     async def login(self, i: LoginInput) -> Dict[str, str]:
-        hashed_password = config("login_hashed_password", cast=str)
+        hashed_password = config("login_password", cast=str)
         if bcrypt.checkpw(i.password.encode('utf-8'), hashed_password.encode('utf-8')):
             return sign_jwt()
 
