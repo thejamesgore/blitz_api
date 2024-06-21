@@ -1,8 +1,8 @@
 import logging
 import secrets
-import bcrypt
 from typing import Dict
 
+import bcrypt
 import psutil
 from decouple import config
 from fastapi import HTTPException, status
@@ -23,6 +23,7 @@ from app.system.models import (
 _SLEEP_TIME = config("gather_hw_info_interval", default=2, cast=float)
 _CPU_AVG_PERIOD = config("cpu_usage_averaging_period", default=0.5, cast=float)
 _HW_INFO_YIELD_TIME = _SLEEP_TIME + _CPU_AVG_PERIOD
+
 
 class NativePythonSystem(SystemBase):
     async def get_system_info(self) -> SystemInfo:
@@ -65,7 +66,7 @@ class NativePythonSystem(SystemBase):
 
     async def login(self, i: LoginInput) -> Dict[str, str]:
         hashed_password = config("login_password", cast=str)
-        if bcrypt.checkpw(i.password.encode('utf-8'), hashed_password.encode('utf-8')):
+        if bcrypt.checkpw(i.password.encode("utf-8"), hashed_password.encode("utf-8")):
             return sign_jwt()
 
         raise HTTPException(
